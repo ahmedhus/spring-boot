@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.undertow.UndertowOptions;
+import org.apache.tomcat.util.threads.ThreadPoolExecutor;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.DeprecatedConfigurationProperty;
@@ -905,6 +906,16 @@ public class ServerProperties {
 			 */
 			private int minSpare = 10;
 
+			/**
+			 * idle time in milliseconds
+			 */
+			private int maxIdleTime = 60000;
+
+			/**
+			 * The maximum number of elements that can queue up before we reject them
+			 */
+			private int maxQueueSize = Integer.MAX_VALUE;
+
 			public int getMax() {
 				return this.max;
 			}
@@ -921,6 +932,21 @@ public class ServerProperties {
 				this.minSpare = minSpare;
 			}
 
+			public int getMaxQueueSize() {
+				return this.maxQueueSize;
+			}
+
+			public void setMaxQueueSize(int maxQueueSize) {
+				this.maxQueueSize = maxQueueSize;
+			}
+
+			public int getMaxIdleTime() {
+				return this.maxIdleTime;
+			}
+
+			public void setMaxIdleTime(int maxIdleTime) {
+				this.maxIdleTime = maxIdleTime;
+			}
 		}
 
 		/**

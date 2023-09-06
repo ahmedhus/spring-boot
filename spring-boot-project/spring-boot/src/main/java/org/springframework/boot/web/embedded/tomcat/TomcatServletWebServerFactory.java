@@ -38,6 +38,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.catalina.Context;
 import org.apache.catalina.Engine;
+import org.apache.catalina.Executor;
 import org.apache.catalina.Host;
 import org.apache.catalina.Lifecycle;
 import org.apache.catalina.LifecycleEvent;
@@ -202,13 +203,21 @@ public class TomcatServletWebServerFactory extends AbstractServletWebServerFacto
 		tomcat.getService().addConnector(connector);
 		customizeConnector(connector);
 		tomcat.setConnector(connector);
+		addConnectorExecutor(connector, tomcat);
 		tomcat.getHost().setAutoDeploy(false);
 		configureEngine(tomcat.getEngine());
 		for (Connector additionalConnector : this.additionalTomcatConnectors) {
 			tomcat.getService().addConnector(additionalConnector);
+			addConnectorExecutor(additionalConnector, tomcat);
 		}
 		prepareContext(tomcat.getHost(), initializers);
 		return getTomcatWebServer(tomcat);
+	}
+
+	private static void addConnectorExecutor(Connector connector, Tomcat tomcat) {
+		if(connector.getProtocolHandler().getExecutor() instanceof Executor executor) {
+			tomcat.getService().addExecutor(executor);
+		}
 	}
 
 	private void configureEngine(Engine engine) {
