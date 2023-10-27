@@ -215,7 +215,7 @@ public class TomcatServletWebServerFactory extends AbstractServletWebServerFacto
 	}
 
 	private static void addConnectorExecutor(Connector connector, Tomcat tomcat) {
-		if(connector.getProtocolHandler().getExecutor() instanceof Executor executor) {
+		if (connector.getProtocolHandler().getExecutor() instanceof Executor executor) {
 			tomcat.getService().addExecutor(executor);
 		}
 	}

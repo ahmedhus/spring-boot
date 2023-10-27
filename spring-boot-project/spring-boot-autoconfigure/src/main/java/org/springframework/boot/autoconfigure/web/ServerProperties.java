@@ -947,6 +947,7 @@ public class ServerProperties {
 			public void setMaxIdleTime(int maxIdleTime) {
 				this.maxIdleTime = maxIdleTime;
 			}
+
 		}
 
 		/**

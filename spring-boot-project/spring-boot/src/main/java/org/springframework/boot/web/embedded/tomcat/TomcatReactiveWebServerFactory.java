@@ -144,7 +144,7 @@ public class TomcatReactiveWebServerFactory extends AbstractReactiveWebServerFac
 	}
 
 	private static void addConnectorExecutor(Connector connector, Tomcat tomcat) {
-		if(connector.getProtocolHandler().getExecutor() instanceof Executor executor) {
+		if (connector.getProtocolHandler().getExecutor() instanceof Executor executor) {
 			tomcat.getService().addExecutor(executor);
 		}
 	}
